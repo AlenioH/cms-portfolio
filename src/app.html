@@ -34,15 +34,33 @@
     display: flex;
     flex-direction: column;
   }
+
   h1 {
     font-weight: 400;
     letter-spacing: 4px;
   }
+
   p {
     font-weight: 300;
   }
 
+  button {
+    all: unset;
+  }
+
   svg {
     color: #333333;
+  }
+
+  a {
+    color: #806d5a;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, transform 0.3s ease;
+  }
+
+  a:hover {
+    color: #333333;
+    border-bottom: 1px solid #333333;
   }
 </style>
