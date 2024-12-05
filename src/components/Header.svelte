@@ -23,10 +23,21 @@
 
 {#if isOverlayOpen && $isMobile}
   <div class="overlay">
-    <button class="close" on:click={() => (isOverlayOpen = !isOverlayOpen)}>
-      <Icon icon="mdi:close" width={iconSize} height={iconSize} />
-    </button>
-    <SocialButtons {person} />
+    <div class="container">
+      <button class="close" on:click={() => (isOverlayOpen = !isOverlayOpen)}>
+        <Icon icon="mdi:close" width={iconSize} height={iconSize} />
+      </button>
+      <nav class="nav">
+        <a href="#about" on:click={() => (isOverlayOpen = !isOverlayOpen)}
+          >About Me</a
+        >
+        <a href="#portfolio" on:click={() => (isOverlayOpen = !isOverlayOpen)}
+          >Portfolio</a
+        >
+      </nav>
+
+      <SocialButtons {person} />
+    </div>
   </div>
 {/if}
 
@@ -45,14 +56,22 @@
     position: absolute;
     width: 100%;
     height: 100%;
+  }
+
+  .container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 3rem;
+    padding: 2rem 1rem;
   }
 
-  .close {
-    margin-top: 2rem;
-    margin-right: 1rem;
+  nav {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    align-items: flex-end;
+    gap: 1rem;
+    text-transform: uppercase;
   }
 </style>
