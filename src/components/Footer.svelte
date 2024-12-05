@@ -1,10 +1,12 @@
 <script>
   import Icon from '@iconify/svelte';
+  import { isMobile } from '../stores/isMobile';
 </script>
 
 <footer>
   <button
     class="back-to-top"
+    class:mobile={$isMobile}
     on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
     >Back to Top <Icon
       icon="mdi-light:arrow-up"
@@ -80,6 +82,11 @@
     align-items: center;
     gap: 0.5rem;
   }
+
+  .back-to-top.mobile {
+    top: -3rem;
+  }
+
   .back-to-top:hover {
     background-color: #555555;
   }
