@@ -18,5 +18,8 @@
 <style>
   main {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
   }
 </style>
