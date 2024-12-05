@@ -3,6 +3,7 @@
 
   import { isMobile } from '../stores/isMobile';
   import SocialButtons from '../components/SocialButtons.svelte';
+  import { slide } from 'svelte/transition';
 
   export let person;
 
@@ -22,7 +23,7 @@
 </header>
 
 {#if isOverlayOpen && $isMobile}
-  <div class="overlay">
+  <div class="overlay" transition:slide={{ duration: 500 }}>
     <div class="container">
       <button class="close" on:click={() => (isOverlayOpen = !isOverlayOpen)}>
         <Icon icon="mdi:close" width={iconSize} height={iconSize} />
@@ -51,7 +52,7 @@
   }
 
   .overlay {
-    background-color: #c8c8c8;
+    background-color: #eaeaea;
     z-index: 100;
     position: absolute;
     width: 100%;
