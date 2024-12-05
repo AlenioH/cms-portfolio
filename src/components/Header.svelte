@@ -6,6 +6,7 @@
 
   export let person;
 
+  let iconSize = $isMobile ? 45 : 30;
   $: isOverlayOpen = false;
 </script>
 
@@ -13,7 +14,7 @@
   <h1><a href="/">{person.name}</a></h1>
   {#if $isMobile}
     <button on:click={() => (isOverlayOpen = !isOverlayOpen)}>
-      <Icon icon="mdi:hamburger-menu" width="30" height="30" />
+      <Icon icon="mdi:hamburger-menu" width={iconSize} height={iconSize} />
     </button>
   {:else}
     <SocialButtons {person} />
@@ -22,8 +23,8 @@
 
 {#if isOverlayOpen && $isMobile}
   <div class="overlay">
-    <button on:click={() => (isOverlayOpen = !isOverlayOpen)}>
-      <Icon icon="mdi:close" width="30" height="30" />
+    <button class="close" on:click={() => (isOverlayOpen = !isOverlayOpen)}>
+      <Icon icon="mdi:close" width={iconSize} height={iconSize} />
     </button>
     <SocialButtons {person} />
   </div>
@@ -47,6 +48,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .close {
+    margin-top: 2rem;
+    margin-right: 1rem;
   }
 </style>
