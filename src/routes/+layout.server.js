@@ -2,7 +2,7 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 
 export async function load() {
-  const person = await axios.get(`${API_URL}/api/person`);
+  const person = await axios.get(`${API_URL}/api/person?populate=photo`);
 
   const projects = await axios.get(`${API_URL}/api/projects`);
 
