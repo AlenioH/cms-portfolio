@@ -17,7 +17,7 @@
 
 <style>
   main {
-    padding: 1rem;
+    padding: 1rem 3rem;
     display: flex;
     flex-direction: column;
     min-height: 100%;

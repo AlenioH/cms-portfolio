@@ -54,7 +54,7 @@
     max-width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
+    margin: 1rem 3rem;
   }
 
   .overlay {
