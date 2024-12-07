@@ -42,7 +42,6 @@
     color: #eaeaea;
     text-align: center;
     padding: 20px 10px;
-    font-family: 'Arial', sans-serif;
   }
 
   .footer-content p,
