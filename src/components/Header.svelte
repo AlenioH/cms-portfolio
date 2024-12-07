@@ -8,7 +8,17 @@
   export let person;
 
   let iconSize = $isMobile ? 45 : 30;
+
   $: isOverlayOpen = false;
+
+  const navigate = (event) => {
+    event.preventDefault();
+    const target = event.target.getAttribute('href');
+    isOverlayOpen = false;
+    setTimeout(() => {
+      document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  };
 </script>
 
 <header>
@@ -23,18 +33,14 @@
 </header>
 
 {#if isOverlayOpen && $isMobile}
-  <div class="overlay" transition:slide={{ duration: 500 }}>
+  <div class="overlay" transition:slide={{ duration: 300 }}>
     <div class="container">
       <button class="close" on:click={() => (isOverlayOpen = !isOverlayOpen)}>
         <Icon icon="mdi:close" width={iconSize} height={iconSize} />
       </button>
       <nav class="nav">
-        <a href="#about" on:click={() => (isOverlayOpen = !isOverlayOpen)}
-          >About Me</a
-        >
-        <a href="#portfolio" on:click={() => (isOverlayOpen = !isOverlayOpen)}
-          >Portfolio</a
-        >
+        <a href="#about" on:click={navigate}>About Me</a>
+        <a href="#portfolio" on:click={navigate}>Portfolio</a>
       </nav>
 
       <SocialButtons {person} />
