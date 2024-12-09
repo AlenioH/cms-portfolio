@@ -21,7 +21,7 @@
       alt={person.photo.alternativeText}
     />
     <div>
-      <h2>Web Developer</h2>
+      <h2>{person.title}</h2>
       <p id="about" class:show-less={showAllToggled}>
         <em>About me.</em>
         {person.about}
