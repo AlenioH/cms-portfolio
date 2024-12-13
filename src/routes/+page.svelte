@@ -1,27 +1,28 @@
 <script>
   import Icon from '@iconify/svelte';
   import { isMobile, isSmallScreen } from '../stores/isMobile';
+  import { fly } from 'svelte/transition';
 
   export let data;
 
   let person = data.person;
-  let aboutHeight = 300;
-  let aboutDiv;
 
-  $: aboutExpanded = !$isSmallScreen;
+  $: aboutExpanded = !$isSmallScreen || person.about.length < 200;
 
+  let about = person.about;
+  let toExpand = '';
+  if (person.about.length > 200) {
+    about = person.about.slice(0, 200);
+    toExpand = person.about.slice(200);
+  }
   const API_URL = import.meta.env.VITE_API_URL;
 
   const toggleAbout = () => {
     const currentY = window.scrollY;
     aboutExpanded = !aboutExpanded;
-
-    if (aboutHeight === 300) {
-      aboutHeight = aboutExpanded ? aboutDiv.scrollHeight : 300;
-    }
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       window.scrollTo({ top: currentY });
-    });
+    }, 15);
   };
 </script>
 
@@ -33,15 +34,17 @@
     />
     <div>
       <h2>{person.title}</h2>
-      <p
-        id="about"
-        class:show-less={!aboutExpanded}
-        bind:this={aboutDiv}
-        style="max-height: {aboutExpanded ? `${aboutHeight}px` : '300px'}"
-      >
-        <em>About me.</em>
-        {person.about}
-      </p>
+      <div id="about" class:show-less={!aboutExpanded}>
+        <p>
+          <em>About me.</em>
+          {about}{toExpand && !aboutExpanded ? '...' : ''}
+        </p>
+        {#if aboutExpanded}
+          <p transition:fly={{ duration: 300 }}>
+            {toExpand}
+          </p>
+        {/if}
+      </div>
       {#if $isSmallScreen}
         <button
           class="toggle"
@@ -103,7 +106,7 @@
     width: 60%;
     font-size: 1.5rem;
     line-height: 2.5rem;
-    transition: max-height 0.4s ease;
+    background-color: inherit;
 
     .small-screen & {
       min-width: 100%;
@@ -111,6 +114,10 @@
 
     &.show-less {
       overflow: hidden;
+    }
+
+    p {
+      display: inline;
     }
   }
   button.toggle {
