@@ -4,6 +4,7 @@
   import { fly } from 'svelte/transition';
 
   export let data;
+  console.log('data', data);
 
   let person = data.person;
 
@@ -27,11 +28,19 @@
 </script>
 
 <slot>
-  <div class="img-container" class:small-screen={$isSmallScreen}>
-    <img
-      src={API_URL + '/' + person.photo.url}
-      alt={person.photo.alternativeText}
-    />
+  <div class="img-about-container" class:small-screen={$isSmallScreen}>
+    <div class="img-container">
+      <img
+        src={API_URL + '/' + person.photo.url}
+        alt={person.photo.alternativeText}
+      />
+      <button aria-label="latest project"
+        ><img
+          alt=""
+          src={API_URL + '/' + data.projects[0].images[0].url}
+        /></button
+      >
+    </div>
     <div>
       <h2>{person.title}</h2>
       <div id="about" class:show-less={!aboutExpanded}>
@@ -78,27 +87,54 @@
 </slot>
 
 <style lang="less">
-  .img-container {
-    display: flex;
+  .img-about-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     gap: 4rem;
     width: 100%;
     align-items: flex-start;
 
     &.small-screen {
-      flex-direction: column-reverse;
+      // flex-direction: column-reverse;
+      grid-template-columns: 1fr;
       gap: 1rem;
+    }
+  }
+
+  .img-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 2rem;
+    align-items: flex-start;
+
+    max-width: 500px;
+    background: linear-gradient(10deg, #806d5a 0%, #a8907a 50%, #806d5a 100%);
+    height: 100%;
+    border-radius: 3px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+
+    button {
+      height: 11.3rem;
+      background-color: beige;
+      border-radius: 17px;
+
+      img {
+      }
     }
 
     img {
-      width: 80%;
-      max-width: 500px;
+      max-width: 80%;
       box-shadow:
         0px 4px 8px rgba(0, 0, 0, 0.2),
         0px 1px 3px rgba(0, 0, 0, 0.1);
       display: block;
       height: auto;
-      object-fit: contain;
+      object-fit: cover;
       filter: brightness(0.95) contrast(0.8) saturate(1.4);
+      border-radius: 17px;
+      aspect-ratio: 1/1;
     }
   }
 
